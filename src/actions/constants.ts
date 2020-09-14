@@ -1,0 +1,5 @@
+const MODULE_NAME = 'COMMON'
+
+export const START_FETCHING  = `${MODULE_NAME}/START_FETCHING`
+export const STOP_FETCHING   = `${MODULE_NAME}/STOP_FETCHING`
+export const SET_DATA        = `${MODULE_NAME}/SET_DATA`

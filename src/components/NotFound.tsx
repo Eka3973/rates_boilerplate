@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react'
-import { goTo } from 'route-history'
+import React, {useCallback} from 'react'
+import {goTo} from 'route-history'
 
 const NotFound: React.FC = () => {
-  const onClick = useCallback(() => goTo('/'), [])
+    const revert = useCallback(() => goTo('/'), [])
 
-  return (
-    <div>
-      404 Not found
-    </div>
-  )
+    return (
+        <div onClick={revert}>
+            404 Not found
+        </div>
+    )
 }
 
 export default NotFound

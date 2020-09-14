@@ -1,27 +1,35 @@
-import { Action } from 'redux'
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { ThunkAction } from 'redux-thunk'
 import { RouterState } from 'connected-react-router'
 
 import { ICommonState } from 'reducers/common'
-
-export interface IAction<T> extends Action<string> {
-  payload?: T
-}
+import { SET_DATA, START_FETCHING, STOP_FETCHING } from "actions/constants";
 
 export interface IAppState {
   router: RouterState
   common: ICommonState
 }
 
-export type TAppActionThunk<TPayload, TReturn = void, > = ThunkAction<
-  TReturn,
-  IAppState,
-  unknown,
-  IAction<TPayload>
->
+export type TAppActionThunk = ThunkAction<
+    Promise<void>,
+    IAppState,
+    unknown,
+    IActionType>
 
-export type TAppDispatchThunk<TPayload> = ThunkDispatch<
-  IAppState,
-  unknown,
-  IAction<TPayload>
->
+export type TGetState = () => IAppState
+
+interface IStartFetching {
+  type: typeof START_FETCHING,
+  payload?: any
+}
+
+interface IStopFetching {
+  type: typeof STOP_FETCHING,
+  payload?: any
+}
+
+interface ISetData {
+  type: typeof SET_DATA,
+  payload: []
+}
+
+export type IActionType = IStartFetching | IStopFetching | ISetData ;

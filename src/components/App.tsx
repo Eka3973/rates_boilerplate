@@ -4,29 +4,29 @@ import routeHistory from 'route-history'
 import { Switch, Route } from 'react-router-dom'
 import { Layout } from 'antd'
 import styled from 'styled-components'
-
 import NotFound from './NotFound'
-import Rates from './Rates'
 import Header from './Header'
+import Chart from "components/ChartContainer/Container";
 
-const { Content } = Layout
+
+const {Content} = Layout
 
 function App() {
-  return (
-    <ConnectedRouter history={routeHistory}>
-      <Layout style={{ minHeight: '100%' }}>
-        <Header>Rates</Header>
-        <Layout>
-          <Content>
-            <Switch>
-              <Route exact path="/" component={Rates} />
-              <Route component={NotFound} />
-            </Switch>
-          </Content>
-        </Layout>
-      </Layout>
-    </ConnectedRouter>
-  )
+    return (
+        <ConnectedRouter history={routeHistory}>
+            <Layout style={{minHeight: '100vh'}}>
+                <Header>Rates</Header>
+                <Layout>
+                    <Content>
+                        <Switch>
+                            <Route exact path="/" component={Chart}/>
+                            <Route exact path="/pageError" component={NotFound}/>
+                        </Switch>
+                    </Content>
+                </Layout>
+            </Layout>
+        </ConnectedRouter>
+    )
 }
 
 export default styled(App)`

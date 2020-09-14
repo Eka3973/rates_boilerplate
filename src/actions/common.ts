@@ -1,17 +1,17 @@
-import { IAction, IAppState, TAppDispatchThunk } from 'store'
+import { TAppActionThunk, TGetState } from 'store'
+import api from "../API/ratesAPI";
+import { SET_DATA, START_FETCHING, STOP_FETCHING } from "actions/constants";
 
-const MODULE_NAME = 'COMMON'
+const startFetching = () => ({type: START_FETCHING})
+const stopFetching = () => ({type: STOP_FETCHING})
+const setData = (payload) => ({type: SET_DATA, payload})
 
-export const START_FETCHING = `${MODULE_NAME}/START_FETCHING`
-export const STOP_FETCHING = `${MODULE_NAME}/STOP_FETCHING`
 
-export const startFetching = (): any => async (dispatch: TAppDispatchThunk<never>): Promise<void> => {
-  dispatch({
-    type: START_FETCHING,
-  })
-}
-export const stopFetching = (): any => async (dispatch: TAppDispatchThunk<never>): Promise<void> => {
-  dispatch({
-    type: STOP_FETCHING,
-  })
-}
+export const getRates = (currencyId): TAppActionThunk =>
+    async (dispatch, getState: TGetState) => {
+        const {startDate, endDate} = getState().common
+        dispatch(startFetching())
+        const data = await api.setRates(currencyId, startDate, endDate)
+        dispatch(stopFetching())
+        dispatch(setData(data))
+    }
